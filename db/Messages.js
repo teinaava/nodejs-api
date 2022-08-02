@@ -1,8 +1,11 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Model } from 'sequelize';
 import { Boards } from './Boards.js';
-import { db } from './db.js';
+import { db as sequelize } from './db.js';
 import { Users } from "./Users.js";
-export const Messages = db.define('Messages', {
+
+export class Messages extends Model {
+}
+Messages.init({
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -15,9 +18,12 @@ export const Messages = db.define('Messages', {
         allowNull: false,
     },
 },
-    {
-        freezeTableName: true
-    });
+{
+    sequelize,
+    freezeTableName: true,
+})
+
+
 
 Boards.hasMany(Messages, {
     targetKey: 'id',
