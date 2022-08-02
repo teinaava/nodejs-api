@@ -5,6 +5,7 @@ import topicsRouter from './Routes/BoardsRoute.js';
 import passport from 'passport';
 import { passInit } from './jwt/passport.js';
 import boardsRouter from './Routes/BoardsRoute.js';
+import { messagesRouter } from './Routes/MessagesRoute.js';
 
 const server = express();
 const PORT = 1337;
@@ -22,7 +23,7 @@ server.use(jsonParser);
 server.use('/users', usersRouter);
 server.use('/topics', topicsRouter);
 server.use('/boards', boardsRouter);
-
+server.use('/messages', messagesRouter);
 server.get('/', (req, res) => {
     res.json({
         message: 'HENLO! IT\'\S API. I think you should try another one path to get something... more useful, u know'
