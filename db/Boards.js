@@ -13,7 +13,7 @@ export class Boards extends Model {
      * @param {string} description 
      * @returns {object} {code, result}
      */
-    static async createBoard(name, description) {
+    static async createBoardAsync(name, description) {
         let dublicate = await Boards.count({ where: { name: name } });
         if (dublicate > 0) {
             return {
@@ -40,7 +40,7 @@ export class Boards extends Model {
      * @param {string} searchQuery search by name
      * @returns {Object}
      */
-    static async GetBoards(limit, page, searchQuery) {
+    static async GetBoardsAsync(limit, page, searchQuery) {
         let total = await Boards.count();
         let result;
         if (!searchQuery)
