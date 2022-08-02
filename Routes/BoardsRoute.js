@@ -6,7 +6,7 @@ export default boardsRouter;
 // GET ALL TOPICS
 boardsRouter.get('/', async (req, res) => {
     try {
-        let boards = await Boards.GetBoards(req.query.limit, req.query.page, req.query.search);
+        let boards = await Boards.GetBoardsAsync(req.query.limit, req.query.page, req.query.search);
         res.json(boards);
     } catch (error) {
         console.log(error);
@@ -30,7 +30,7 @@ boardsRouter.get('/:id', async (req, res) => {
 boardsRouter.post('/create', async (req, res) => {
     try {
         if (req.body.name) {
-            let { result, code } = await Boards.createBoard(req.body.name, req.body.description);
+            let { result, code } = await Boards.createBoardAsync(req.body.name, req.body.description);
             res.status(code).json(result);
         }
         else
