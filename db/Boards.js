@@ -28,7 +28,7 @@ export class Boards extends Model {
                 description: description
             });
             return {
-                code: 200,
+                code: 201,
                 result: board
             }
         }

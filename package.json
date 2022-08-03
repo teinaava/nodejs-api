@@ -12,7 +12,9 @@
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "sequelize": "^6.21.3",
-    "sqlite3": "^5.0.10"
+    "sqlite3": "^5.0.10",
+    "swagger-jsdoc": "^6.2.2",
+    "swagger-ui-express": "^4.5.0"
   },
   "scripts": {
     "dev": "nodemon app.js"
