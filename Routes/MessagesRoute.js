@@ -20,9 +20,9 @@ messagesRouter.post('/create', async (req, res) => {
 messagesRouter.get('/:board', async (req, res) => {
 
     try {
-        let messages = await Messages.getMessagesByBoardIdAsync(req.params.board,
+        let {result, code} = await Messages.getMessagesByBoardIdAsync(req.params.board,
              req.query.page, req.query.limit, req.query.searchQuery);
-        res.json(messages);
+        res.status(code).json(result);
 
     } catch (error) {
         console.log(error);
