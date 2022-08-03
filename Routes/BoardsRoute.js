@@ -9,7 +9,7 @@ export default boardsRouter;
  * @openapi
  * /boards:
  *   get:
- *     description: Get all boards
+ *     summary: Get all boards
  *     parameters:
  *       - in: query
  *         name: limit
@@ -24,6 +24,8 @@ export default boardsRouter;
  *     responses:
  *       200:
  *         description: Returns a array of boards.
+ *     tags:
+ *      - Boards
  *     
  */
 boardsRouter.get('/', async (req, res) => {
@@ -39,7 +41,7 @@ boardsRouter.get('/', async (req, res) => {
  * @openapi
  * /boards/:
  *   get:
- *     description: Get board by id
+ *     summary: Get board by id
  *     parameters:
  *       - in: path
  *         name: id
@@ -50,6 +52,8 @@ boardsRouter.get('/', async (req, res) => {
  *         description: Returns a board.
  *       404:
  *        description: Returns a message 'board not found'.
+ *     tags:
+ *      - Boards
  */
 
 boardsRouter.get('/:id', async (req, res) => {
@@ -70,7 +74,7 @@ boardsRouter.get('/:id', async (req, res) => {
  * @openapi
  * /boards/create:
  *   post:
- *     description: create a new board
+ *     summary: create a new board
  *     parameters:
  *       - name: body
  *         in: body
@@ -89,6 +93,8 @@ boardsRouter.get('/:id', async (req, res) => {
  *        description: Returns a message 'board not found'.
  *       400: 
  *        description: Returns a message 'incorrect name'.
+ *     tags:
+ *      - Boards
  */
 
 
