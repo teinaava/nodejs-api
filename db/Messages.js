@@ -48,10 +48,12 @@ export class Messages extends Model {
     }
     static async getMessagesByBoardIdAsync(boardId, page, limit, searchQuery) {
         let messages;
-        const total = await Messages.count({where: {
-            boardId: boardId
-        }});
-        if(total === 0){
+        const total = await Messages.count({
+            where: {
+                boardId: boardId
+            }
+        });
+        if (total === 0) {
             return {
                 code: 404,
                 result: {
@@ -83,6 +85,27 @@ export class Messages extends Model {
         return {
             code: 200,
             result: messages
+        }
+    }
+    static async deleteMessageAsync(messageId) {
+        const { count, rows } = await Messages.findAndCountAll({
+            where: { id: messageId }
+        });
+        if (count === 0) {
+            return {
+                code: 404,
+                result: 'message not found'
+            }
+        }
+        else {
+            await Messages.destroy({ where: { id: messageId } });
+            return {
+                code: 200,
+                result: {
+                    message: 'message has been deleted',
+                    meesage: rows[0]
+                }
+            }
         }
     }
 }

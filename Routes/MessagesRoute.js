@@ -20,10 +20,19 @@ messagesRouter.post('/create', async (req, res) => {
 messagesRouter.get('/:board', async (req, res) => {
 
     try {
-        let {result, code} = await Messages.getMessagesByBoardIdAsync(req.params.board,
-             req.query.page, req.query.limit, req.query.searchQuery);
+        let { result, code } = await Messages.getMessagesByBoardIdAsync(req.params.board,
+            req.query.page, req.query.limit, req.query.searchQuery);
         res.status(code).json(result);
 
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'something went wrong 500 Internal Server Error' });
+    }
+});
+messagesRouter.delete('/delete/:id', async (req, res) => {
+    try {
+        let { result, code } = await Messages.deleteMessageAsync(req.params.id);
+        res.status(code).json(result);
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'something went wrong 500 Internal Server Error' });
