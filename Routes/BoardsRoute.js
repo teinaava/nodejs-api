@@ -41,7 +41,7 @@ boardsRouter.get('/', async (req, res) => {
 });
 /**
  * @openapi
- * /boards/:
+ * /boards/{id}:
  *   get:
  *     summary: Get board by id
  *     parameters:

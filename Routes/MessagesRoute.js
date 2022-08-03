@@ -48,7 +48,7 @@ messagesRouter.post('/create', async (req, res) => {
 
 /**
  * @openapi
- * /messages/:
+ * /messages/{boardId}:
  *   get:
  *     summary: Get message by board ID
  *     parameters:
@@ -91,7 +91,7 @@ messagesRouter.get('/:boardId', async (req, res) => {
 
 /**
  * @openapi
- * /messages/delete:
+ * /messages/delete/{id}:
  *   delete:
  *     summary: Delete message
  *     parameters:
