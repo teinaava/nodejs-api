@@ -15,10 +15,12 @@ export default boardsRouter;
  *         name: limit
  *         required: false
  *         type: number
- *       - name: page
+ *       - in: query
+ *         name: page
  *         required: false
  *         type: number
- *       - name: search
+ *       - in: query
+ *         name: search
  *         required: false
  *         type: string
  *     responses:

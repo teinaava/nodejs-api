@@ -36,7 +36,7 @@ export class Messages extends Model {
                 userId: authorId,
             });
             return {
-                code: 200,
+                code: 201,
                 result: message
             }
         }
@@ -100,10 +100,10 @@ export class Messages extends Model {
         else {
             await Messages.destroy({ where: { id: messageId } });
             return {
-                code: 200,
+                code: 204,
                 result: {
                     message: 'message has been deleted',
-                    meesage: rows[0]
+                    result: rows[0]
                 }
             }
         }
