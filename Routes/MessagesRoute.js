@@ -50,7 +50,7 @@ messagesRouter.post('/create', async (req, res) => {
  * @openapi
  * /messages/{boardId}:
  *   get:
- *     summary: Get message by board ID
+ *     summary: Get messages by board ID
  *     parameters:
  *       - in: path
  *         name: boardId
@@ -68,7 +68,6 @@ messagesRouter.post('/create', async (req, res) => {
  *         name: search
  *         required: false
  *         type: string
- *      
  *     responses:
  *       200:
  *         description: Returns messages.
