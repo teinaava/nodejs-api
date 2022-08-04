@@ -25,7 +25,7 @@ export default boardsRouter;
  *         type: string
  *     responses:
  *       200:
- *         description: Returns a array of boards.
+ *         description: Returns an array of boards.
  *     tags:
  *      - Boards
  *     
