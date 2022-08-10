@@ -1,8 +1,6 @@
 import express from 'express';
 import { Users } from '../db/Users.js';
 import { auth } from '../auth.js';
-
-
 const usersRouter = express.Router();
 export default usersRouter;
 /**
@@ -186,6 +184,30 @@ usersRouter.put('/edit/:id', async (req, res) => {
         res.status(500).json({ message: 'something went wrong 500 Internal Server Error' })
     }
 });
+/**
+ * @openapi
+ * /users/login:
+ *   post:
+ *     summary: Edit user
+ *     parameters:
+ *       - name: body
+ *         in: body
+ *         required:
+ *            - login
+ *            - password
+ *         properties:
+ *             login:
+ *               type: string
+ *             password:
+ *               type: string
+ *     responses:
+ *       200:
+ *         description: login
+ *       401:
+ *         description: Unauthorized
+ *     tags:
+ *       - Users
+ */
 usersRouter.post('/login', async (req, res) => {
     auth(req, res);
 })
