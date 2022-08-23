@@ -22,7 +22,10 @@ export class Users extends Model {
                 const record = await Users.create(user);
                 return {
                     code: 201,
-                    result: record
+                    result: {
+                        login: record.login,
+                        name: record.name
+                    }
                 }
             } else
                 return {
