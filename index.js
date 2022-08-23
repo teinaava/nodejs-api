@@ -2,8 +2,6 @@ import { init } from './db/db.js';
 import express from 'express';
 import usersRouter from './Routes/UsersRoute.js';
 import topicsRouter from './Routes/BoardsRoute.js';
-import passport from 'passport';
-import { passInit } from './jwt/passport.js';
 import boardsRouter from './Routes/BoardsRoute.js';
 import { messagesRouter } from './Routes/MessagesRoute.js';
 import swaggerJsdoc from 'swagger-jsdoc';
@@ -30,8 +28,6 @@ init().then(() => {
         console.log(`SERVER IS RUNNING ON ${PORT}`)
     })
 });
-server.use(passport.initialize());
-passInit(passport);
 server.use(jsonParser);
 server.use('/api-docs', SwaggerUi.serve, SwaggerUi.setup(swaggerDocs));
 //routers

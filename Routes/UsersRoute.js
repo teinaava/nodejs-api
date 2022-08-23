@@ -1,6 +1,5 @@
-import express from 'express';
+import express, { json } from 'express';
 import { Users } from '../db/Users.js';
-import { auth } from '../auth.js';
 const usersRouter = express.Router();
 export default usersRouter;
 /**
@@ -209,6 +208,12 @@ usersRouter.put('/edit/:id', async (req, res) => {
  *       - Users
  */
 usersRouter.post('/login', async (req, res) => {
-    auth(req, res);
+    try {
+        let { result, code } = await Users.auth(req.body.login, req.body.password);
+        res.status(code).json(result);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'something went wrong 500 Internal Server Error' })
+    }
 })
 

@@ -2,6 +2,8 @@ import { DataTypes, Model } from 'sequelize';
 import { db as sequelize } from './db.js';
 import { getOffestAndTotalPages } from '../utils.js';
 import Sequelize from 'sequelize';
+import jwt from "jsonwebtoken";
+export const jwtKey = 'keykey';
 const Op = Sequelize.Op;
 
 export class Users extends Model {
@@ -140,6 +142,43 @@ export class Users extends Model {
                 result: newUser
             }
         }
+    }
+    static async auth(login, password) {
+        if (login && password) {
+            let { rows, count } = await Users.findAndCountAll({
+                where: {
+                    login: login,
+                    password: password
+                },
+                attributes: {
+                    exclude: ['password']
+                }
+            });
+            if (count > 0) {
+                return {
+                    code: 200,
+                    result: {
+                        user: rows[0]
+                    }
+                }
+            }
+            return {
+                code: 404,
+                result: {
+                    message: 'Invalid login or password'
+                }
+            }
+
+        }
+        else {
+            return {
+                code: 400,
+                result: {
+                    message: 'Invalid request data'
+                }
+            }
+        }
+
     }
 }
 Users.init({
