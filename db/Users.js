@@ -120,6 +120,17 @@ export class Users extends Model {
         let { count, rows } = await Users.findAndCountAll({
             where: { id: userId }
         });
+        if(user.login){
+            let countByLogin = await Users.count({
+                where: { login: user.login }
+            });
+            if(countByLogin > 0){
+                return {
+                    code: 400,
+                    result: {message: 'login name not allowed'}
+                }
+            }
+        }
         if (count === 0)
             return {
                 code: 404,
@@ -133,8 +144,8 @@ export class Users extends Model {
                 toEditUser[field] = user[field];
             }
             await Users.update({
-                login: user.login,
-                name: user.name
+                login: toEditUser.login,
+                name: toEditUser.name
             }, {
                 where: { id: userId },
             });
