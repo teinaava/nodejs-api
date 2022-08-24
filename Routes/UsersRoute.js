@@ -158,13 +158,10 @@ usersRouter.delete('/delete/:id', async (req, res) => {
  *         required:
  *            - name
  *            - login
- *            - password
  *         properties:
  *             name:
  *               type: string
  *             login:
- *               type: string
- *             password:
  *               type: string
  *     responses:
  *       200:

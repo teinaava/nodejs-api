@@ -120,18 +120,22 @@ export class Users extends Model {
         let { count, rows } = await Users.findAndCountAll({
             where: { id: userId }
         });
-        if (!user.password) {
-            user.password = rows[0].password
-        }
         if (count === 0)
             return {
                 code: 404,
                 result: {
-                    message: 'user not found'
+                    message: `User with id ${userId} does not exist`
                 }
             }
         else {
-            await Users.update(user, {
+            let toEditUser = rows[0];
+            for(let field in user){
+                toEditUser[field] = user[field];
+            }
+            await Users.update({
+                login: user.login,
+                name: user.name
+            }, {
                 where: { id: userId },
             });
             let newUser = await Users.findOne({
