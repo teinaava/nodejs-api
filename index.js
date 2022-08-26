@@ -6,6 +6,7 @@ import boardsRouter from './Routes/BoardsRoute.js';
 import { messagesRouter } from './Routes/MessagesRoute.js';
 import swaggerJsdoc from 'swagger-jsdoc';
 import SwaggerUi from 'swagger-ui-express';
+import cors from 'cors';
 
 const server = express();
 const swaggerOptions = {
@@ -29,6 +30,7 @@ init().then(() => {
     })
 });
 server.use(jsonParser);
+server.use(cors());
 server.use('/api-docs', SwaggerUi.serve, SwaggerUi.setup(swaggerDocs));
 //routers
 server.use('/users', usersRouter);
