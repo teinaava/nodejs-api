@@ -144,6 +144,48 @@ usersRouter.delete('/delete/:id', async (req, res) => {
         res.status(500).json({ message: 'something went wrong 500 Internal Server Error' });
     }
 });
+
+
+/**
+ * @openapi
+ * /users/editpass/{id}:
+ *   put:
+ *     summary: Edit password
+ *     parameters:
+ *       - name: id
+ *         in: path
+ *         required: true
+ *       - name: body
+ *         in: body
+ *         required:
+ *            - currentPassword
+ *            - newPassword
+ *         properties:
+ *             currentPassword:
+ *               type: string
+ *             newPassword:
+ *               type: string
+ *     responses:
+ *       200:
+ *         description: password updated
+ *       404:
+ *         description: user not found
+ *       403:
+ *         Invalid current password
+ *     tags:
+ *       - Users
+ */
+usersRouter.put('/editpass/:id', async (req, res) => {
+    try {
+        let { code, result } = await Users.changePassword(req.body.newPassword, req.body.currentPassword, req.params.id);
+        res.status(code).json(result);
+    }
+    catch {
+        console.log(error);
+        res.status(500).json({ message: 'something went wrong 500 Internal Server Error' });
+    }
+});
+
 /**
  * @openapi
  * /users/edit/{id}:

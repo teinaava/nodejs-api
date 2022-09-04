@@ -120,14 +120,14 @@ export class Users extends Model {
         let { count, rows } = await Users.findAndCountAll({
             where: { id: userId }
         });
-        if(user.login){
+        if (user.login) {
             let countByLogin = await Users.count({
                 where: { login: user.login }
             });
-            if(countByLogin > 0){
+            if (countByLogin > 0) {
                 return {
                     code: 400,
-                    result: {message: 'login name not allowed'}
+                    result: { message: 'login name not allowed' }
                 }
             }
         }
@@ -140,7 +140,7 @@ export class Users extends Model {
             }
         else {
             let toEditUser = rows[0];
-            for(let field in user){
+            for (let field in user) {
                 toEditUser[field] = user[field];
             }
             await Users.update({
@@ -198,7 +198,50 @@ export class Users extends Model {
         }
 
     }
+    static async changePassword(newPassword, currentPassword, userId) {
+        if (newPassword && currentPassword && userId) {
+            let user = await Users.findOne({
+                where: { id: userId }
+            });
+            if (!user) {
+                return {
+                    code: 404,
+                    result: {
+                        message: 'User not found'
+                    }
+                }
+            }
+            if (user.password == currentPassword) {
+                await Users.update({
+                    password: newPassword
+                },
+                    { where: { id: userId } });
+                return {
+                    code: 200,
+                    result: {
+                        message: 'success'
+                    }
+                }
+            } else {
+                return {
+                    code: 403,
+                    result: {
+                        message: 'Invalid current password'
+                    }
+                }
+            }
+        }
+        else {
+            return {
+                code: 402,
+                result: {
+                    message: 'Invalid request body, must be {currentPassword, newPassword}'
+                }
+            }
+        }
+    }
 }
+
 Users.init({
     id: {
         type: DataTypes.INTEGER,
