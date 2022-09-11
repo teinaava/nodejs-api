@@ -122,7 +122,10 @@ export class Users extends Model {
         });
         if (user.login) {
             let countByLogin = await Users.count({
-                where: { login: user.login }
+                where: {
+                    login: user.login,
+                    id: {[Op.not]: userId}  
+                }
             });
             if (countByLogin > 0) {
                 return {
