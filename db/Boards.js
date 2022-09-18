@@ -11,9 +11,10 @@ export class Boards extends Model {
      * Creates a board and return it on success, otherwise return an error message. Returns object-result and status code
      * @param {string} name 
      * @param {string} description 
-     * @returns {object} {code, result}
+     * @param {string} color 
+     * @returns {object} {code, result, color}
      */
-    static async createBoardAsync(name, description) {
+    static async createBoardAsync(name, description, color) {
         let dublicate = await Boards.count({ where: { name: name } });
         if (dublicate > 0) {
             return {
@@ -25,7 +26,8 @@ export class Boards extends Model {
         } else {
             const board = await Boards.create({
                 name: name,
-                description: description
+                description: description,
+                color: color
             });
             return {
                 code: 201,
@@ -88,6 +90,10 @@ Boards.init({
         type: DataTypes.STRING(300),
         allowNull: true
     },
+    color: {
+        type: DataTypes.STRING(7),
+        allowNull: false
+    }
 }, {
     sequelize,
     modelName: 'Boards'

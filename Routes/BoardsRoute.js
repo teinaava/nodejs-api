@@ -83,10 +83,13 @@ boardsRouter.get('/:id', async (req, res) => {
  *         required:
  *            - name
  *            - description
+ *            - color
  *         properties:
  *             name:
  *               type: string
  *             description:
+ *               type: string
+ *             color:
  *               type: string
  *     responses:
  *       201:
@@ -102,8 +105,8 @@ boardsRouter.get('/:id', async (req, res) => {
 
 boardsRouter.post('/create', async (req, res) => {
     try {
-        if (req.body.name) {
-            let { result, code } = await Boards.createBoardAsync(req.body.name, req.body.description);
+        if (req.body.name && req.body.color) {
+            let { result, code } = await Boards.createBoardAsync(req.body.name, req.body.description, req.body.color);
             res.status(code).json(result);
         }
         else
